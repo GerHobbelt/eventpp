@@ -25,6 +25,8 @@ eventpp is a C++ event library for callbacks, event dispatcher, and event queue.
 ![Compilers](https://img.shields.io/badge/Compilers-GCC%2FMSVC%2FClang%2FIntel-blue)
 ![License](https://img.shields.io/badge/License-Apache--2.0-blue)
 ![CI](https://github.com/wqking/eventpp/workflows/CI/badge.svg)
+[![Vcpkg port](https://img.shields.io/vcpkg/v/eventpp)](https://vcpkg.link/ports/eventpp)
+[![Conan Center](https://img.shields.io/conan/v/eventpp)](https://conan.io/center/recipes/eventpp)
 
 ## Facts and features
 
@@ -88,73 +90,8 @@ In brief, MSVC, GCC, Clang that has well support for C++11, or released after 20
 
 ### Use eventpp in your project
 
-There are various methods to use eventpp
-
-1, Include the source code in your project directly.
-
-eventpp is header only library. Just clone the source code, then add the 'include' folder inside eventpp to your project include directory, then you can use the library.  
-You don't need to link to any source code.  
-
-2, Or use vcpkg
-
-```
-vcpkg install eventpp
-```
-
-Then in your project CMakeLists.txt file, put below code, remember to replace ${TARGET} with your target,
-
-```
-find_package(eventpp CONFIG REQUIRED)
-target_link_libraries(${TARGET} PRIVATE eventpp::eventpp)
-find_path(EVENTPP_INCLUDE_DIR eventpp/eventqueue.h)
-include_directories(${EVENTPP_INCLUDE_DIR})
-```
-
-Then run cmake, note you need -DCMAKE_TOOLCHAIN_FILE to specify vcpkg, and replace -G with your generator
-```
-cmake .. -DCMAKE_TOOLCHAIN_FILE=VCPKGDIR/vcpkg/scripts/buildsystems/vcpkg.cmake -G"MinGW Makefiles"
-```
-
-Note with vcpkg, only the released version can be used, which may be behind the latest update. You can't use the minor update on the master branch.
-
-3, Or install using CMake and use it in CMake
-
-If you are going to use eventpp in CMake managed project, you can install eventpp then use it in CMake.  
-In eventpp root folder, run the commands,  
-```
-mkdir build
-cd build
-cmake ..
-sudo make install
-```
-
-Then in the project CMakeLists.txt,   
-```
-# the project target is mytest, just for example
-add_executable(mytest test.cpp)
-
-find_package(eventpp)
-if(eventpp_FOUND)
-    target_link_libraries(mytest eventpp::eventpp)
-else(eventpp_FOUND)
-    message(FATAL_ERROR "eventpp library is not found")
-endif(eventpp_FOUND)
-```
-
-Note: when using the method 3 with MingW on Windows, by default CMake will install eventpp in system folder which is not writable. You should specify another folder to install. To do so, replace `cmake ..` with `cmake .. -DCMAKE_INSTALL_PREFIX="YOUR_NEW_LIB_FOLDER"`.
-
-4, If you use Hunter package manager
-
-You may follow the example code on [Hunter document](https://hunter.readthedocs.io/en/latest/packages/pkg/eventpp.html). Below is the code snippet I grabbed from that link,  
-
-```
-hunter_add_package(eventpp)
-find_package(eventpp CONFIG REQUIRED)
-
-add_executable(main main.cpp)
-target_link_libraries(main eventpp::eventpp)
-include_directories(${EVENTPP_INCLUDE_DIR})
-```
+`eventpp` package is available in C++ package managers Vcpkg, Conan, and Hunter. There are various methods to use eventpp.  
+Please [read the document](doc/install.md) for details.
 
 ### Using CallbackList
 ```c++
@@ -190,6 +127,7 @@ dispatcher.dispatch(5);
 
 ### Using EventQueue
 ```c++
+#include "eventpp/eventqueue.h"
 eventpp::EventQueue<int, void (const std::string &, const bool)> queue;
 
 queue.appendListener(3, [](const std::string s, bool b) {
@@ -209,6 +147,8 @@ queue.process();
 
 ## Documentations
 
+* Setup
+    * [Install and use eventpp in your project](doc/install.md)
 * Core classes and functions
     * [Overview](doc/introduction.md)
     * [Tutorials of CallbackList](doc/tutorial_callbacklist.md)
@@ -319,6 +259,9 @@ Added CallbackList, EventDispatcher, EventQueue, CounterRemover, ConditionalRemo
 <tr>
 <td align="center"><a href="https://github.com/henaiguo/"><img alt="henaiguo" src="https://github.com/henaiguo.png?s=100" width="100px;" /></a><span>henaiguo</span></td>
 <td align="center"><a href="https://github.com/sr-tream/"><img alt="sr-tream" src="https://github.com/sr-tream.png?s=100" width="100px;" /></a><span>sr-tream</span></td>
+<td align="center"><a href="https://github.com/Drise13/"><img alt="Drise13" src="https://github.com/Drise13.png?s=100" width="100px;" /></a><span>Drise13</span></td>
+<td align="center"><a href="https://github.com/iamzone/"><img alt="iamzone" src="https://github.com/iamzone.png?s=100" width="100px;" /></a><span>iamzone</span></td>
+<td align="center"><a href="https://github.com/RazielXYZ/"><img alt="RazielXYZ" src="https://github.com/RazielXYZ.png?s=100" width="100px;" /></a><span>RazielXYZ</span></td>
 </tr>
 </table>
 

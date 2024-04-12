@@ -16,6 +16,10 @@
 
 #include <iostream>
 
+#if defined(BUILD_MONOLITHIC)
+#define main        eventpp_demo_main
+#endif
+
 int main()
 {
 	eventpp::EventQueue<int, void (const std::string &, std::unique_ptr<int> &)> queue;

@@ -58,7 +58,7 @@ void funcMoveConstruct(void * object, void * buffer)
 
 struct AnyDataFunctions
 {
-	void (*free)(void *);
+	void (*release)(void *);
 	void (*moveConstruct)(void *, void *);
 };
 
@@ -158,7 +158,7 @@ private:
 public:
 	~AnyData() {
 		if(functions != nullptr) {
-			functions->free(buffer.data());
+			functions->release(buffer.data());
 		}
 	}
 

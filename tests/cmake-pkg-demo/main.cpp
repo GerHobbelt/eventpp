@@ -20,7 +20,7 @@
 #define main        eventpp_demo_main
 #endif
 
-int main()
+int main(void)
 {
 	eventpp::EventQueue<int, void (const std::string &, std::unique_ptr<int> &)> queue;
 
